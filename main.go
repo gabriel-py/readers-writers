@@ -92,10 +92,11 @@ func runExperiment(readers, writers int) time.Duration {
 }
 
 func main() {
-	rand.Seed(time.Now().UnixNano())
-	proportions := [][2]int{
-		{0, 100}, {1, 99}, {2, 98}, {3, 97} /* até */, {99, 1}, {100, 0},
+	var proportions [][2]int
+	for i := 0; i <= 100; i++ {
+		proportions = append(proportions, [2]int{i, 100 - i})
 	}
+
 	for _, proportion := range proportions {
 		var totalDuration time.Duration
 		for i := 0; i < 50; i++ {
